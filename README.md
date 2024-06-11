@@ -8,14 +8,10 @@ Screen recorder plugin for Flutter. Supports IOS and Android devices.It does not
 
 ## Ekler
 
-android/app/build.gradle
-```dart
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.github.HBiSoft:HBRecorder:3.0.1'
-    implementation 'androidx.appcompat:appcompat:1.4.1'
-}
-```
+pubspec.yaml
+
+ed_screen_recorder:
+git : "https://github.com/yeagle2468/ed_screen_recorder"
 
 android/app/src/main/AndroidManifest.xml
 ```xml
