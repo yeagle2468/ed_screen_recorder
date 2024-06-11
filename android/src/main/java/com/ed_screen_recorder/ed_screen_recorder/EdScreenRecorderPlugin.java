@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.projection.MediaProjectionManager;
+import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -156,14 +157,18 @@ public class EdScreenRecorderPlugin implements FlutterPlugin, ActivityAware, Met
                         micPermission = true;
                     }
 
-                    if (ContextCompat.checkSelfPermission(flutterPluginBinding.getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                            != PackageManager.PERMISSION_GRANTED) {
-
-                        ActivityCompat.requestPermissions(activity,
-                                new String[]{ Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                                444);
-                    } else {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                         mediaPermission = true;
+                    } else {
+                        if (ContextCompat.checkSelfPermission(flutterPluginBinding.getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                                != PackageManager.PERMISSION_GRANTED) {
+
+                            ActivityCompat.requestPermissions(activity,
+                                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                    444);
+                        } else {
+                            mediaPermission = true;
+                        }
                     }
                     if (micPermission && mediaPermission) {
                         success = startRecordingScreen();
